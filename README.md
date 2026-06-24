@@ -101,21 +101,27 @@ int main()
 
     msg.set<OrderLayout, Price, byte_weave::EndiansPolicy::Big>(1234500);
     msg.set<OrderLayout, Quantity, byte_weave::EndiansPolicy::Big>(10);
+    auto& buff_peer1 = msg.buffer();
 
-    auto bytes = msg.buffer();
+    byte_weave::Message<OrderMessage> msg_other_peer;
+    auto& buff_peer2 = msg_other_peer.buffer();
+    // send and recieve data
+    memcpy(buff_peer2.data(), buff_peer1.data(), OrderMessage::buffer_size);
 
-    auto version = msg.get_primary<Version, byte_weave::EndiansPolicy::Big>();
-    auto msg_type = msg.get_primary<MsgType>();
-    auto req_id = msg.get_primary<RequestId, byte_weave::EndiansPolicy::Big>();
-    auto price = msg.get<OrderLayout, Price, byte_weave::EndiansPolicy::Big>();
-    auto quantity = msg.get<OrderLayout, Quantity, byte_weave::EndiansPolicy::Big>();
+    auto version = msg_other_peer.get_primary<Version, byte_weave::EndiansPolicy::Big>();
+    auto msg_type = msg_other_peer.get_primary<MsgType>();
+    auto req_id = msg_other_peer.get_primary<RequestId, byte_weave::EndiansPolicy::Big>();
+    auto price = msg_other_peer.get<OrderLayout, Price, byte_weave::EndiansPolicy::Big>();
+    auto quantity = msg_other_peer.get<OrderLayout, Quantity, byte_weave::EndiansPolicy::Big>();
 
     std::cout<<"Version:        "<<version<<std::endl;
     std::cout<<"Message type:   "<<int(msg_type)<<std::endl;
     std::cout<<"Request id:     "<<req_id<<std::endl;
     std::cout<<"Price:          "<<price<<std::endl;
     std::cout<<"Quantity:       "<<quantity<<std::endl;
-    std::cout<<"Buffer size:    "<<bytes.size()<<std::endl;
+    std::cout<<"Buffer1 size:    "<<buff_peer1.size()<<std::endl;
+    std::cout<<"Buffer2 size:    "<<buff_peer2.size()<<std::endl;
+    std::cout<<"Schema buff size:"<<OrderMessage::buffer_size<<std::endl;
     return 1;
 }
 ```
