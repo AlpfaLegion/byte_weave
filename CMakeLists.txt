@@ -11,7 +11,7 @@ option(BYTE_WEAVE_INSTALL_SINGLE_HEADER "Install generated single-header instead
 add_library(byte_weave INTERFACE)
 add_library(byte_weave::byte_weave ALIAS byte_weave)
 
-target_compile_features(byte_weave INTERFACE cxx_std_23)
+target_compile_features(byte_weave INTERFACE cxx_std_20)
 
 if(BYTE_WEAVE_INSTALL_SINGLE_HEADER)
     target_include_directories(byte_weave INTERFACE

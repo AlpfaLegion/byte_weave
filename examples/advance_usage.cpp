@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <array>
+#include <bit>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
@@ -67,7 +68,5 @@ int main()
     auto get_v2 = msg.get_primary<BodyResponce::Tag2>();
     auto get_v3 = msg.get_primary<BodyResponce::Tag3>();
     
-
-
     return 1;
 }
