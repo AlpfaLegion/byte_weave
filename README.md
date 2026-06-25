@@ -60,7 +60,7 @@ when binding external storage whose size is not guaranteed by the type.
 
 ## Requirements
 
-- C++23 target in the current CMake configuration
+- C++20 target in the current CMake configuration
 - Standard library support for `std::span`, concepts, ranges, and `std::endian`
 - CMake 3.15 or newer when using the provided build files
 
